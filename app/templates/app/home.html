@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    
+    
+</style>
+<body>
+    {% include "header.html" %}
+    {% if user.is_authenticated %}
+    <h2>Hi {{ request.user.first_name }} {{ request.user.last_name }}!,</h2>
+    <h1>Login  successful</h1>
+
+    
+<center>
+    <table id="myTable" border="3">
+            
+        <thead><h1>Employee Details</h1>
+        <tr>
+            <th>Sl.No</th>
+            <th>Employee Name</th>
+            <th>Employee Role</th>
+            <th>Salaryh</th>
+            <th>Gender</th>
+            <th>Employee Code</th>
+            <th>joined Date</th>
+        </tr>
+        </thead>
+            
+           
+        {% for emp in data %}
+            <tbody>
+            <tr> 
+              <td>{{emp.emp_name}}</td>
+              <td>{{emp.emp_role}}</td>
+              <td>{{emp.salary}}</td>
+              <td>{{emp.gender}}</td>
+              <td>{{emp.emp_code}}</td>
+              <td>{{emp.joined_date}}</td>
+              <td class="bg-danger"><a href="delete/{{emp.id}}">Delete</a></td>
+              <td><a href="update/{{emp.id}}">Edit</a></td> 
+            </tr>
+            </tbody>
+        {% endfor %}  
+    
+    </table>
+    </center>
+	
+	{% else %}
+	<p>Please <a href="{% url 'login' %}" rel="noopener noreferrer">Click</a> to the login page</p>
+	{% endif %}
+    
+ 
+<script>
+    var table = document.getElementById("myTable");
+    var rows = table.getElementsByTagName("tr");
+
+    for (var i = 1; i < rows.length; i++) {
+        var cell = document.createElement("td");
+        cell.textContent = i.toString();
+        rows[i].insertBefore(cell, rows[i].firstChild);
+    }
+</script>
+</body>
+</html>
